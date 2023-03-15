@@ -18,7 +18,7 @@ namespace Console_MATTER.Models
         public string Department { get; set; } = string.Empty;
         public string MatterType { get; set; } = string.Empty;
         public string Comment { get; set; } = string.Empty;
-        public CaseStatus Status { get; set; } = CaseStatus.Open;
+        public MatterStatus Status { get; set; } = MatterStatus.Open;
         public DateTime CreatedAt { get; set; }
     }
 }

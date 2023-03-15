@@ -53,6 +53,7 @@ namespace Console_MATTER.Services
                     Console.WriteLine($"Avdelning: {matter.Department}");
                     Console.WriteLine($"Typ av ärende: {matter.MatterType}");
                     Console.WriteLine($"Kommentar: {matter.Comment}");
+                    Console.WriteLine($"Status: {matter.Status}");
                     Console.WriteLine("");
                 }
             }
