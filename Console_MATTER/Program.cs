@@ -12,7 +12,7 @@ while (true)
     Console.WriteLine("4. Visa stängda ärenden");
     Console.WriteLine("5. Uppdatera ett specifikt Ärende");
     Console.WriteLine("6. Ta bort ett specifikt ärende");
-    Console.Write("Välj ett av följande alternativ (1-5): ");
+    Console.Write("Välj ett av följande alternativ (1-6): ");
 
     switch (Console.ReadLine())
     {

@@ -34,7 +34,6 @@ namespace Console_MATTER.Contexts
 
         public DbSet<UserEntity> Users { get; set; } = null!;
         public DbSet<MatterEntity> Matters { get; set; } = null!;
-        public DbSet<ClosedMatterEntity> Closed { get; set; } = null!;
 
     }
 }

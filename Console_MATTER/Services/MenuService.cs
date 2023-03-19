@@ -53,6 +53,7 @@ namespace Console_MATTER.Services
                     Console.WriteLine($"Avdelning: {matter.Department}");
                     Console.WriteLine($"Typ av ärende: {matter.MatterType}");
                     Console.WriteLine($"Kommentar: {matter.Comment}");
+                    Console.WriteLine($"Skapat: {matter.CreatedAt}");
                     Console.WriteLine($"Status: {matter.Status}");
                     Console.WriteLine("");
                 }
@@ -104,32 +105,24 @@ namespace Console_MATTER.Services
 
         public async Task ListClosedMatterAsync()
         {
-            Console.Write("Ange e-postadress för Ärendet: ");
-            var status = Console.ReadLine();
+            var matters = await MatterService.GetClosedAsync();
 
-            if (!string.IsNullOrEmpty(status))
+            if (matters.Any())
             {
 
-                var matter = await MatterService.GetClosedAsync(status);
-
-                if (status != null)
+                foreach (Matter matter in matters)
                 {
                     Console.WriteLine($"ID: {matter.Id}");
                     Console.WriteLine($"Avdelning: {matter.Department}");
                     Console.WriteLine($"Typ av ärende: {matter.MatterType}");
+                    Console.WriteLine($"Kommentar: {matter.Comment}");
                     Console.WriteLine($"Status: {matter.Status}");
-                    Console.WriteLine("");
-                }
-                else
-                {
-                    Console.Clear();
-                    Console.WriteLine($"Inget ärende med den angivna e-postadressen {status} hittades.");
                     Console.WriteLine("");
                 }
             }
             else
             {
-                Console.WriteLine($"Ingen e-postadressen angiven.");
+                Console.WriteLine("Inga ärenden finns i databasen.");
                 Console.WriteLine("");
             }
 

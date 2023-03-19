@@ -80,20 +80,23 @@ namespace Console_MATTER.Services
             else
                 return null!;
         }
-        public static async Task<Matter> GetClosedAsync(MatterStatus status)
+        public static async Task<IEnumerable<Matter>> GetClosedAsync()
         {
-            var _matter = await _context.Closed.FirstOrDefaultAsync(x => x.Status == status);
-            if (_matter != null)
-                return new Matter
+            var _matters = new List<Matter>();
+
+            foreach (var _matter in await _context.Matters.Where(x => x.Status == MatterStatus.Closed).Include(x => x.User).ToListAsync())
+                _matters.Add(new Matter
                 {
+                    Id = _matter.Id,
                     Department = _matter.Department,
                     MatterType = _matter.MatterType,
+                    Comment = _matter.Comment,
                     Status = _matter.Status
-                };
+                });
 
-            else
-                return null!;
+            return _matters;
         }
+    
 
         public static async Task UpdateAsync(Matter matter)
         {
@@ -113,8 +116,6 @@ namespace Console_MATTER.Services
                 if (!string.IsNullOrEmpty(matter.Comment))
                     _matterEntity.Comment = matter.Comment;
 
-                if (!string.IsNullOrEmpty(matter.Status))
-                    _matterEntity.Status = matter.Status;
 
                 if (!string.IsNullOrEmpty(matter.FirstName) || !string.IsNullOrEmpty(matter.LastName) || !string.IsNullOrEmpty(matter.Email) || !string.IsNullOrEmpty(matter.PhoneNumber))
                 {
@@ -132,10 +133,10 @@ namespace Console_MATTER.Services
 
                     _context.Update(_matterEntity);
                     await _context.SaveChangesAsync();
-                }
             }
+        }
 
-            public static async Task DeleteAsync(string email)
+        public static async Task DeleteAsync(string email)
             {
                 var matter = await _context.Matters.Include(x => x.User).FirstOrDefaultAsync(x => x.Email == email);
                 if (matter != null)
@@ -145,7 +146,7 @@ namespace Console_MATTER.Services
                 }
             }
     }
-    }
+}
 
 
 
