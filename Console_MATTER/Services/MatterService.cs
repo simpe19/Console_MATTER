@@ -116,6 +116,8 @@ namespace Console_MATTER.Services
                 if (!string.IsNullOrEmpty(matter.Comment))
                     _matterEntity.Comment = matter.Comment;
 
+                if (!string.IsNullOrEmpty(matter.Status))
+                    _matterEntity.Status = matter.Status;
 
                 if (!string.IsNullOrEmpty(matter.FirstName) || !string.IsNullOrEmpty(matter.LastName) || !string.IsNullOrEmpty(matter.Email) || !string.IsNullOrEmpty(matter.PhoneNumber))
                 {
