@@ -180,6 +180,51 @@ namespace Console_MATTER.Services
 
         }
 
+        public async Task UpdateStatusAsync()
+        {
+            Console.Write("Ange e-postadress på ärendet: ");
+            var email = Console.ReadLine();
+
+            if (!string.IsNullOrEmpty(email))
+            {
+
+                var matter = await MatterService.GetAsync(email);
+                if (matter != null)
+                {
+                    Console.WriteLine("Skriv in Siffran på den status du vill ändra till \n");
+                    Console.WriteLine("0 - Open  ");
+                    Console.WriteLine("1 - In progress  ");
+                    Console.WriteLine("2 - Closed  ");
+
+
+
+                    var test = Console.ReadLine() ?? null!;
+                    if (!string.IsNullOrEmpty(test))
+                    {
+                        matter.Status = Enum.Parse<MatterStatus>(test);
+                        await MatterService.UpdateStatusAsync(matter);
+                    }
+                    else
+                    {
+                        Console.WriteLine($"Status är oförändrad.");
+                        Console.WriteLine("");
+                    }
+                }
+                else
+                {
+                    Console.WriteLine($"Hittade inte något ärende på den angivna e-postadressen.");
+                    Console.WriteLine("");
+                }
+
+            }
+            else
+            {
+                Console.WriteLine($"Ingen e-postadressen angiven.");
+                Console.WriteLine("");
+            }
+
+        }
+
 
         public async Task DeleteSpecificMatterAsync()
         {

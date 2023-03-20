@@ -116,9 +116,6 @@ namespace Console_MATTER.Services
                 if (!string.IsNullOrEmpty(matter.Comment))
                     _matterEntity.Comment = matter.Comment;
 
-                if (!string.IsNullOrEmpty(matter.Status))
-                    _matterEntity.Status = matter.Status;
-
                 if (!string.IsNullOrEmpty(matter.FirstName) || !string.IsNullOrEmpty(matter.LastName) || !string.IsNullOrEmpty(matter.Email) || !string.IsNullOrEmpty(matter.PhoneNumber))
                 {
                     var _userEntity = await _context.Users.FirstOrDefaultAsync(x => x.FirstName == matter.FirstName && x.LastName == matter.LastName && x.PhoneNumber == matter.PhoneNumber);
@@ -137,6 +134,21 @@ namespace Console_MATTER.Services
                     await _context.SaveChangesAsync();
             }
         }
+
+        public static async Task UpdateStatusAsync(Matter matter)
+        {
+            var _matterEntity = await _context.Matters.FirstOrDefaultAsync(x => x.Id == matter.Id);
+            if (_matterEntity != null)
+            {
+
+               
+                    _matterEntity.Status = matter.Status;
+
+                _context.Update(_matterEntity);
+                await _context.SaveChangesAsync();
+            }
+        }
+
 
         public static async Task DeleteAsync(string email)
             {

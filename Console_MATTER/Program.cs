@@ -11,8 +11,9 @@ while (true)
     Console.WriteLine("3. Visa ett specifik ärende");
     Console.WriteLine("4. Visa stängda ärenden");
     Console.WriteLine("5. Uppdatera ett specifikt Ärende");
-    Console.WriteLine("6. Ta bort ett specifikt ärende");
-    Console.Write("Välj ett av följande alternativ (1-6): ");
+    Console.WriteLine("6. Uppdatera en Status");
+    Console.WriteLine("7. Ta bort ett specifikt ärende");
+    Console.Write("Välj ett av följande alternativ (1-7): ");
 
     switch (Console.ReadLine())
     {
@@ -42,6 +43,11 @@ while (true)
             break;
 
         case "6":
+            Console.Clear();
+            await menu.UpdateStatusAsync();
+            break;
+
+        case "7":
             Console.Clear();
             await menu.DeleteSpecificMatterAsync();
             break;
